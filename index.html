@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+
+<div class="main">
+
+  <h1 class="title">Library</h1>
+  <div class="form-container">
+    <form>
+      <label for="title">Title:</label><br>
+      <input type="text" id="title"><br>
+      <span id="error-title" class="error-input d-none">* This can't be empty</span><br>
+
+      <label for="author">Author:</label><br>
+      <input type="text" id="author"><br>
+      <span id="error-author" class="error-input d-none">* This can't be empty</span><br>
+
+      <label for="numPages">Number of Pages:</label><br>
+      <input type="text" id="numPages"><br>
+      <span id="error-pages" class="error-input d-none">* This can't be empty</span><br>
+
+      <label for="read">Already Read:</label><br>
+      <input type="checkbox" id="read"><br>
+
+    </form>
+    <button type="button" class = "btn "id="add-book" onclick = "createBookWithForm()">Add Book!</button>
+  </div>
+
+  <div id="book-container" class="book-container"></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
