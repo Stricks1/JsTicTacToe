@@ -1,8 +1,8 @@
 const gameBoard = (() => {
-  const board = ['', '', '', '', '', '', '', '', ''];
+  let board = ['', '', '', '', '', '', '', '', ''];
   const render = () => {
     const cells = document.getElementsByClassName('cell');
-    for (let i = 0; i < cells.length; i++) {
+    for (let i = 0; i < cells.length; i += 1) {
       cells[i].innerHTML = board[i];
     }
   };
@@ -31,9 +31,14 @@ const gameBoard = (() => {
       return 1;
     }
     if (board.find(element => element === '') === '') {
-      return false;
+      return '';
     }
     return 2;
+  };
+
+  const boardReset = () => {
+    board = ['', '', '', '', '', '', '', '', ''];
+    render();
   };
 
   return {
@@ -42,6 +47,7 @@ const gameBoard = (() => {
     putMarker,
     validMove,
     checkEnd,
+    boardReset,
   };
 })();
 
@@ -51,7 +57,7 @@ const gamePlayer = (() => {
 
   function clearButtons() {
     const cells = document.getElementsByClassName('cell');
-    for (let i = 0; i < cells.length; i++) {
+    for (let i = 0; i < cells.length; i += 1) {
       cells[i].onclick = '';
     }
   }
@@ -59,16 +65,18 @@ const gamePlayer = (() => {
   const turns = (player1, player2, index) => {
     if (gameBoard.validMove(index)) {
       gameBoard.putMarker(index, currentPlayer === 1 ? player1.marker : player2.marker);
-      let state = gameBoard.checkEnd();
+      const state = gameBoard.checkEnd();
       if (state) {
         clearButtons();
         if (state === 2) {
-          alert('draw')
+          document.getElementById('message').innerHTML = "It's a Draw!";
         } else {
-          alert( currentPlayer === 1 ? player1.name : player2.name )
+          document.getElementById('message').innerHTML = `${currentPlayer === 1 ? player1.name : player2.name} Won!`;
         }
+      } else {
+        currentPlayer = (currentPlayer === 1) ? 2 : 1;
+        document.getElementById('message').innerHTML = `It's ${currentPlayer === 1 ? player1.name : player2.name} turn!`;
       }
-      currentPlayer = (currentPlayer === 1) ? 2 : 1;
     }
   };
 
@@ -83,9 +91,56 @@ const playerFactory = (name, marker) => {
   return { name, marker };
 };
 
-const player1 = playerFactory('jeff', 'X');
-const player2 = playerFactory('whatever', 'O');
 
-function clickingCell(index) {
-  gamePlayer.turns(player1, player2, index);
-}
+const buttonModel = (() => {
+  let p1 = '';
+  let p2 = '';
+
+  function getPlayerName() {
+    const player1 = document.getElementById('player1');
+    const player2 = document.getElementById('player2');
+    const ep1 = document.getElementById('ep1');
+    const ep2 = document.getElementById('ep2');
+
+    ep1.classList.remove('d-inline');
+    ep2.classList.remove('d-inline');
+
+    ep1.classList.add('d-none');
+    ep2.classList.add('d-none');
+
+    if (player1.value.trim() === '') {
+      player1.value = '';
+      ep1.classList.add('d-inline');
+      player1.focus();
+    }
+
+    if (player2.value.trim() === '') {
+      player2.value = '';
+      ep2.classList.add('d-inline');
+      player2.focus();
+    }
+
+    if (player1.value.trim() === '' || player2.value.trim() === '') {
+      return;
+    }
+
+    p1 = playerFactory(player1.value, 'X');
+    p2 = playerFactory(player2.value, 'O');
+    document.getElementById('message').innerHTML = `It's ${p1.name} turn!`;
+  }
+
+  function clickingCell(index) {
+    gamePlayer.turns(p1, p2, index);
+  }
+
+  function reset() {
+    gameBoard.boardReset();
+  }
+
+
+  return {
+    getPlayerName,
+    clickingCell,
+    reset,
+  };
+})();

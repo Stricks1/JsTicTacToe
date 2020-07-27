@@ -13,7 +13,10 @@ body {
 
 .main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+
 }
 
 .board {
@@ -49,4 +52,23 @@ body {
 .border-horizontal {
   border-top: solid 2px black;
   border-bottom: solid 2px black;
+}
+
+.message-container {
+  margin-top: 4rem;
+  font-size: calc(1rem + 3vh);
+}
+
+.error-input {
+  color: red;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-inline {
+  display: block;
 }

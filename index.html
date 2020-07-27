@@ -9,22 +9,47 @@
 <body>
 
 <div class="main">
+
+  <div class="form-container">
+    <form>
+
+      <label for="player">Player 1 Name:</label><br>
+      <input type="text" id="player1"><br>
+      <span id="ep1" class="error-input d-none">* This can't be empty</span><br>
+
+      <label for="player">Player 2 Name:</label><br>
+      <input type="text" id="player2"><br>
+      <span id="ep2" class="error-input d-none">* This can't be empty</span><br>
+
+    </form>
+    <button type="button" class = "btn " onclick = "buttonModel.getPlayerName()">Start Game!</button>
+  </div>
+
+  <div class="form-container">
+    <button type="button" class = "btn " onclick = "buttonModel.reset()">Play again!</button>
+  </div>
+
+  
   <div class="board">
     <div class="row">
-      <span class="cell" onclick="clickingCell(0)"></span>
-      <span class="cell border-vertical" onclick="clickingCell(1)"></span>
-      <span class="cell" onclick="clickingCell(2)"></span>
+      <span class="cell" onclick="buttonModel.clickingCell(0)"></span>
+      <span class="cell border-vertical" onclick="buttonModel.clickingCell(1)"></span>
+      <span class="cell" onclick="buttonModel.clickingCell(2)"></span>
     </div>
     <div class="row">
-      <span class="cell border-horizontal" onclick="clickingCell(3)"></span>
-      <span class="cell border-central" onclick="clickingCell(4)"></span>
-      <span class="cell border-horizontal" onclick="clickingCell(5)"></span>
+      <span class="cell border-horizontal" onclick="buttonModel.clickingCell(3)"></span>
+      <span class="cell border-central" onclick="buttonModel.clickingCell(4)"></span>
+      <span class="cell border-horizontal" onclick="buttonModel.clickingCell(5)"></span>
     </div>
     <div class="row">
-      <span class="cell" onclick="clickingCell(6)"></span>
-      <span class="cell border-vertical" onclick="clickingCell(7)"></span>
-      <span class="cell" onclick="clickingCell(8)"></span>
+      <span class="cell" onclick="buttonModel.clickingCell(6)"></span>
+      <span class="cell border-vertical" onclick="buttonModel.clickingCell(7)"></span>
+      <span class="cell" onclick="buttonModel.clickingCell(8)"></span>
     </div>
+  </div>
+
+  <div class="message-container">
+    <p id="message"></p>
   </div>
 </div>
 
