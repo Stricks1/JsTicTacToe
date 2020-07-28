@@ -16,7 +16,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .board {
@@ -32,12 +31,13 @@ body {
 .cell {
   min-width: 40px;
   min-height: 40px;
-  width: 20vw;
+  width: 20vh;
   height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: calc(1rem + 10vh);
+  cursor: pointer;
 }
 
 .border-central {
@@ -57,6 +57,7 @@ body {
 .message-container {
   margin-top: 4rem;
   font-size: calc(1rem + 3vh);
+  color: black;
 }
 
 .error-input {
@@ -70,6 +71,37 @@ body {
 }
 
 .d-inline {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+#topelements {
+  margin-top: 2rem;
+}
+
+#bottomelements {
+  margin-top: 2rem;
+}
+
+.btn {
+  background-color: rgb(54, 126, 60);
+  color: white;
+  padding: 10px;
+  border: 2px solid rgb(54, 126, 60);
+  border-radius: 5px;
+  font: inherit;
+  cursor: pointer;
+  font-size: calc(1rem + 1vh);
+  margin-bottom: 5rem;
+}
+
+
+.x-class {
+  color: rgb(54, 126, 60);
+}
+
+.o-class {
+  color: rgb(43, 82, 148);
+}

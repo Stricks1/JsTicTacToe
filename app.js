@@ -1,9 +1,15 @@
 const gameBoard = (() => {
   let board = ['', '', '', '', '', '', '', '', ''];
+
   const render = () => {
     const cells = document.getElementsByClassName('cell');
     for (let i = 0; i < cells.length; i += 1) {
       cells[i].innerHTML = board[i];
+      if (board[i] === 'X') {
+        cells[i].classList.add('x-class');
+      } else if (board[i] === 'O') {
+        cells[i].classList.add('o-class');
+      }
     }
   };
 
@@ -51,7 +57,6 @@ const gameBoard = (() => {
   };
 })();
 
-
 const gamePlayer = (() => {
   let currentPlayer = 1;
 
@@ -63,6 +68,19 @@ const gamePlayer = (() => {
     }
   }
 
+  function changeColors(element, player) {
+    if (player === 1) {
+      element.classList.add('x-class');
+      element.classList.remove('o-class');
+    } else if (player === 2) {
+      element.classList.add('o-class');
+      element.classList.remove('x-class');
+    } else {
+      element.classList.remove('x-class');
+      element.classList.remove('o-class');
+    }
+  }
+
   const turns = (player1, player2, index) => {
     if (gameBoard.validMove(index)) {
       gameBoard.putMarker(index, currentPlayer === 1 ? player1.marker : player2.marker);
@@ -71,12 +89,15 @@ const gamePlayer = (() => {
         clearButtons();
         if (state === 2) {
           document.getElementById('message').innerHTML = "It's a Draw!";
+          changeColors(document.getElementById('message'), 3);
         } else {
           document.getElementById('message').innerHTML = `${currentPlayer === 1 ? player1.name : player2.name} Won!`;
+          changeColors(document.getElementById('message'), currentPlayer);
         }
       } else {
         currentPlayer = (currentPlayer === 1) ? 2 : 1;
         document.getElementById('message').innerHTML = `It's ${currentPlayer === 1 ? player1.name : player2.name} turn!`;
+        changeColors(document.getElementById('message'), currentPlayer);
       }
     }
   };
@@ -93,6 +114,7 @@ const gamePlayer = (() => {
   return {
     turns,
     addButtons,
+    changeColors,
   };
 })();
 
@@ -135,6 +157,8 @@ const buttonModel = (() => {
     p1 = playerFactory(player1.value, 'X');
     p2 = playerFactory(player2.value, 'O');
     gamePlayer.addButtons(p1, p2);
+    gamePlayer.currentPlayer = 1;
+    gamePlayer.changeColors(document.getElementById('message'), 1);
     document.getElementById('message').innerHTML = `It's ${p1.name} turn!`;
 
     const bottom = document.getElementById('bottomelements');
@@ -155,6 +179,11 @@ const buttonModel = (() => {
     const top = document.getElementById('topelements');
     top.classList.add('d-inline');
     top.classList.remove('d-none');
+
+    const cells = document.getElementsByClassName('cell');
+    for (let i = 0; i < cells.length; i += 1) {
+      cells[i].classList.remove('x-class', 'o-class');
+    }
   }
 
   return {
