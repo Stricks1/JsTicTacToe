@@ -55,6 +55,14 @@ const gameBoard = (() => {
 const gamePlayer = (() => {
   let currentPlayer = 1;
 
+  function clearButtons() {
+    const cells = document.getElementsByClassName('cell');
+    for (let i = 0; i < cells.length; i += 1) {
+      const clone = cells[i].cloneNode(true);
+      cells[i].replaceWith(clone);
+    }
+  }
+
   const turns = (player1, player2, index) => {
     if (gameBoard.validMove(index)) {
       gameBoard.putMarker(index, currentPlayer === 1 ? player1.marker : player2.marker);
@@ -73,20 +81,12 @@ const gamePlayer = (() => {
     }
   };
 
-  function clearButtons() {
-    const cells = document.getElementsByClassName('cell');
-    for (let i = 0; i < cells.length; i += 1) {
-      const clone = cells[i].cloneNode(true);
-      cells[i].replaceWith(clone);
-    }
-  }
-
   function addButtons(p1, p2) {
     const cells = document.getElementsByClassName('cell');
     for (let i = 0; i < cells.length; i += 1) {
-      cells[i].addEventListener('click', function() {
+      cells[i].addEventListener('click', () => {
         turns(p1, p2, i);
-      }); 
+      });
     }
   }
 
@@ -98,10 +98,7 @@ const gamePlayer = (() => {
 
 gameBoard.render();
 
-const playerFactory = (name, marker) => {
-  return { name, marker };
-};
-
+const playerFactory = (name, marker) => ({ name, marker });
 
 const buttonModel = (() => {
   let p1 = '';
@@ -139,10 +136,25 @@ const buttonModel = (() => {
     p2 = playerFactory(player2.value, 'O');
     gamePlayer.addButtons(p1, p2);
     document.getElementById('message').innerHTML = `It's ${p1.name} turn!`;
+
+    const bottom = document.getElementById('bottomelements');
+    bottom.classList.add('d-inline');
+    bottom.classList.remove('d-none');
+
+    const top = document.getElementById('topelements');
+    top.classList.add('d-none');
+    top.classList.remove('d-inline');
   }
 
   function reset() {
     gameBoard.boardReset();
+    const bottom = document.getElementById('bottomelements');
+    bottom.classList.add('d-none');
+    bottom.classList.remove('d-inline');
+
+    const top = document.getElementById('topelements');
+    top.classList.add('d-inline');
+    top.classList.remove('d-none');
   }
 
   return {
@@ -150,3 +162,12 @@ const buttonModel = (() => {
     reset,
   };
 })();
+
+const bottom = document.getElementById('bottomelements');
+bottom.classList.add('d-none');
+
+const btnStart = document.getElementById('startgame');
+btnStart.addEventListener('click', buttonModel.getPlayerName);
+
+const playAgain = document.getElementById('playagain');
+playAgain.addEventListener('click', buttonModel.reset);

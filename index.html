@@ -10,7 +10,7 @@
 
 <div class="main">
 
-  <div class="form-container">
+  <div class="form-container" id="topelements">
     <form>
 
       <label for="player">Player 1 Name:</label><br>
@@ -22,37 +22,42 @@
       <span id="ep2" class="error-input d-none">* This can't be empty</span><br>
 
     </form>
-    <button type="button" class = "btn " onclick = "buttonModel.getPlayerName()">Start Game!</button>
+    <button type="button" id ="startgame" class = "btn " >Start Game!</button>
   </div>
 
-  <div class="form-container">
-    <button type="button" class = "btn " onclick = "buttonModel.reset()">Play again!</button>
-  </div>
+  <div id="bottomelements">
 
   
-  <div class="board">
-    <div class="row">
-      <span class="cell"></span>
-      <span class="cell border-vertical"></span>
-      <span class="cell"></span>
+    <div class="form-container">
+      <button type="button" id ="playagain" class = "btn " >Play again!</button>
     </div>
-    <div class="row">
-      <span class="cell border-horizontal"></span>
-      <span class="cell border-central"></span>
-      <span class="cell border-horizontal"></span>
+
+    
+    <div class="board">
+      <div class="row">
+        <span class="cell"></span>
+        <span class="cell border-vertical"></span>
+        <span class="cell"></span>
+      </div>
+      <div class="row">
+        <span class="cell border-horizontal"></span>
+        <span class="cell border-central"></span>
+        <span class="cell border-horizontal"></span>
+      </div>
+      <div class="row">
+        <span class="cell"></span>
+        <span class="cell border-vertical" ></span>
+        <span class="cell"></span>
+      </div>
     </div>
-    <div class="row">
-      <span class="cell"></span>
-      <span class="cell border-vertical" ></span>
-      <span class="cell"></span>
+
+    <div class="message-container">
+      <p id="message"></p>
     </div>
+
   </div>
 
-  <div class="message-container">
-    <p id="message"></p>
-  </div>
 </div>
-
 <script src="app.js"></script>
 </body>
 </html>
