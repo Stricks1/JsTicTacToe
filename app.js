@@ -55,13 +55,6 @@ const gameBoard = (() => {
 const gamePlayer = (() => {
   let currentPlayer = 1;
 
-  function clearButtons() {
-    const cells = document.getElementsByClassName('cell');
-    for (let i = 0; i < cells.length; i += 1) {
-      cells[i].onclick = '';
-    }
-  }
-
   const turns = (player1, player2, index) => {
     if (gameBoard.validMove(index)) {
       gameBoard.putMarker(index, currentPlayer === 1 ? player1.marker : player2.marker);
@@ -80,8 +73,26 @@ const gamePlayer = (() => {
     }
   };
 
+  function clearButtons() {
+    const cells = document.getElementsByClassName('cell');
+    for (let i = 0; i < cells.length; i += 1) {
+      const clone = cells[i].cloneNode(true);
+      cells[i].replaceWith(clone);
+    }
+  }
+
+  function addButtons(p1, p2) {
+    const cells = document.getElementsByClassName('cell');
+    for (let i = 0; i < cells.length; i += 1) {
+      cells[i].addEventListener('click', function() {
+        turns(p1, p2, i);
+      }); 
+    }
+  }
+
   return {
     turns,
+    addButtons,
   };
 })();
 
@@ -126,21 +137,16 @@ const buttonModel = (() => {
 
     p1 = playerFactory(player1.value, 'X');
     p2 = playerFactory(player2.value, 'O');
+    gamePlayer.addButtons(p1, p2);
     document.getElementById('message').innerHTML = `It's ${p1.name} turn!`;
-  }
-
-  function clickingCell(index) {
-    gamePlayer.turns(p1, p2, index);
   }
 
   function reset() {
     gameBoard.boardReset();
   }
 
-
   return {
     getPlayerName,
-    clickingCell,
     reset,
   };
 })();
