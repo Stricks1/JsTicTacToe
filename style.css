@@ -24,7 +24,7 @@ body {
   flex-direction: column;
 }
 
-.row{
+.row {
   display: flex;
 }
 
@@ -96,7 +96,6 @@ body {
   font-size: calc(1rem + 1vh);
   margin-bottom: 5rem;
 }
-
 
 .x-class {
   color: rgb(54, 126, 60);
