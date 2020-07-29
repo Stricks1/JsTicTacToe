@@ -13,9 +13,13 @@ const gameBoard = (() => {
     }
   };
 
-  const putMarker = (index, marker) => {
+  const putMarker = (index, marker, ai) => {
     board[index] = marker;
-    render();
+    if (ai) {
+      setTimeout(render, 1000);
+    } else {
+      render();
+    }
   };
 
   const validMove = (cell) => {
@@ -646,7 +650,7 @@ const gamePlayer = (() => {
 
   const turns = (player1, player2, index, ai) => {
     if (gameBoard.validMove(index)) {
-      gameBoard.putMarker(index, currentPlayer === 1 ? player1.marker : player2.marker);
+      gameBoard.putMarker(index, currentPlayer === 1 ? player1.marker : player2.marker, ai);
       const state = gameBoard.checkEnd();
       if (state) {
         clearButtons();
