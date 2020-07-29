@@ -64,10 +64,18 @@ const gameBoard = (() => {
 
 const aiLogics = (() => {
   let aiPos = 0;
+  let levelAi = 1;
 
   function aiPosition(playerPosition) {
     aiPos = playerPosition;
-    aiLogics.aiPos = aiPos;
+  }
+
+  function getAiPos() {
+    return aiPos;
+  }
+
+  function aiLevel(level) {
+    levelAi = level;
   }
 
   function makeMove(p1, p2) {
@@ -194,21 +202,23 @@ const aiLogics = (() => {
       }
     }
 
-    for (let i = 0; i < combinations.length; i += 1) {
-      const results = combinations[i].filter(x => x.includes(markerAi));
-      if (results && results.length === 2) {
-        const indexF = combinations[i].findIndex(checkBlank);
-        if (indexF !== -1) {
-          playWin = returnPositionPlay(i, indexF);
-          // eslint-disable-next-line no-use-before-define
-          gamePlayer.turns(p1, p2, playWin, true);
-          played = true;
-          i = combinations.length;
+    if (levelAi > 1) {
+      for (let i = 0; i < combinations.length; i += 1) {
+        const results = combinations[i].filter(x => x.includes(markerAi));
+        if (results && results.length === 2) {
+          const indexF = combinations[i].findIndex(checkBlank);
+          if (indexF !== -1) {
+            playWin = returnPositionPlay(i, indexF);
+            // eslint-disable-next-line no-use-before-define
+            gamePlayer.turns(p1, p2, playWin, true);
+            played = true;
+            i = combinations.length;
+          }
         }
       }
     }
 
-    if (!played) {
+    if (!played && levelAi > 1) {
       for (let i = 0; i < combinations.length; i += 1) {
         const results = combinations[i].filter(x => x.includes(markerPlayer));
         if (results && results.length === 2) {
@@ -227,7 +237,7 @@ const aiLogics = (() => {
     let moves = gameBoard.board.filter(x => x.includes(markerAi)).length;
     moves += gameBoard.board.filter(x => x.includes(markerPlayer)).length;
 
-    if (moves === 0) {
+    if (moves === 0 && levelAi > 2) {
       const possiblePlay = [0, 2, 6, 8];
       const position = possiblePlay[Math.floor(Math.random() * possiblePlay.length)];
       // eslint-disable-next-line no-use-before-define
@@ -247,7 +257,7 @@ const aiLogics = (() => {
       }
     }
 
-    if (aiPos === 1 && moves === 2) {
+    if (aiPos === 1 && moves === 2 && levelAi > 2) {
       const plFMove = gameBoard.board.findIndex(checkO);
       const aiFMove = gameBoard.board.findIndex(checkX);
       if (plFMove === 4) {
@@ -471,7 +481,7 @@ const aiLogics = (() => {
       }
     }
 
-    if (!played) {
+    if (!played && levelAi > 2) {
       if (aiPos === 2 && moves === 3) {
         if (gameBoard.board[4] === 'X') {
           const corners = [];
@@ -556,7 +566,7 @@ const aiLogics = (() => {
       }
     }
 
-    if (!played) {
+    if (!played && levelAi > 2) {
       if (aiPos === 1 && moves === 4) {
         const corners = [];
         corners.push(gameBoard.board[0]);
@@ -612,9 +622,10 @@ const aiLogics = (() => {
   }
 
   return {
-    aiPos,
     aiPosition,
     makeMove,
+    aiLevel,
+    getAiPos,
   };
 })();
 
@@ -666,7 +677,7 @@ const gamePlayer = (() => {
         document.getElementById('message').innerHTML = `It's ${currentPlayer === 1 ? player1.name : player2.name} turn!`;
         changeColors(document.getElementById('message'), currentPlayer);
       }
-      if (!ai && !state && aiLogics.aiPos !== 0) {
+      if (!ai && !state && aiLogics.getAiPos() !== 0) {
         aiLogics.makeMove(player1, player2);
       }
     }
@@ -697,6 +708,18 @@ const playerFactory = (name, marker) => ({ name, marker });
 const buttonModel = (() => {
   let p1 = '';
   let p2 = '';
+
+  function checkLevel() {
+    if (document.getElementById('junior').checked) {
+      aiLogics.aiLevel(1);
+    }
+    if (document.getElementById('mid').checked) {
+      aiLogics.aiLevel(2);
+    }
+    if (document.getElementById('senior').checked) {
+      aiLogics.aiLevel(3);
+    }
+  }
 
   function getPlayerName() {
     const player1 = document.getElementById('player1');
@@ -741,6 +764,7 @@ const buttonModel = (() => {
     top.classList.add('d-none');
     top.classList.remove('d-inline');
     aiLogics.aiPosition(0);
+    checkLevel();
 
     if (document.getElementById('ai1').checked) {
       aiLogics.aiPosition(1);
@@ -780,6 +804,7 @@ const buttonModel = (() => {
     getPlayerName,
     reset,
     checkAi,
+    checkLevel,
   };
 })();
 
@@ -797,3 +822,12 @@ checkAi1.addEventListener('click', buttonModel.checkAi);
 
 const checkAi2 = document.getElementById('ai2');
 checkAi2.addEventListener('click', buttonModel.checkAi);
+
+const checkJunior = document.getElementById('junior');
+checkJunior.addEventListener('click', buttonModel.checkLevel);
+
+const checkMid = document.getElementById('mid');
+checkMid.addEventListener('click', buttonModel.checkLevel);
+
+const checkSenior = document.getElementById('senior');
+checkSenior.addEventListener('click', buttonModel.checkLevel);

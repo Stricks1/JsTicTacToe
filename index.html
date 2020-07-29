@@ -10,21 +10,29 @@
 
 <div class="main">
 
-  <div class="form-container" id="topelements">
+  <div class="form-container d-inline" id="topelements">
     <form>
 
       <label for="player">Player 1 Name:</label><br>
       <input type="text" id="player1">&nbsp;
-      <input type="checkbox" id="ai1"> Play AI
+      <div><input type="checkbox" id="ai1"> Play AI</div>
       <span id="ep1" class="error-input d-none">* This can't be empty</span><br>
 
       <label for="player">Player 2 Name:</label><br>
       <input type="text" id="player2">&nbsp;
-      <input type="checkbox" id="ai2"> Play AI
+      <div><input type="checkbox" id="ai2"> Play AI </div>
       <span id="ep2" class="error-input d-none">* This can't be empty</span><br>
 
     </form>
     <button type="button" id ="startgame" class = "btn " >Start Game!</button>
+
+    <input type="radio" id="junior" name="level" value=1>
+    <label for="junior">Junior</label><br>
+    <input type="radio" id="mid" name="level" value=2>
+    <label for="mid">Mid</label><br>
+    <input type="radio" id="senior" name="level" value=3>
+    <label for="senior">Senior</label> 
+    
   </div>
 
   <div id="bottomelements">
