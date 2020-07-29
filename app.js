@@ -44,6 +44,7 @@ const gameBoard = (() => {
 
   const boardReset = () => {
     board = ['', '', '', '', '', '', '', '', ''];
+    gameBoard.board = board;
     render();
   };
 
@@ -57,8 +58,570 @@ const gameBoard = (() => {
   };
 })();
 
+const aiLogics = (() => {
+  let aiPos = 0;
+
+  function aiPosition(playerPosition) {
+    aiPos = playerPosition;
+    aiLogics.aiPos = aiPos;
+  }
+
+  function makeMove(p1, p2) {
+    const combinations = [
+      [gameBoard.board[0], gameBoard.board[1], gameBoard.board[2]],
+      [gameBoard.board[3], gameBoard.board[4], gameBoard.board[5]],
+      [gameBoard.board[6], gameBoard.board[7], gameBoard.board[8]],
+      [gameBoard.board[0], gameBoard.board[3], gameBoard.board[6]],
+      [gameBoard.board[1], gameBoard.board[4], gameBoard.board[7]],
+      [gameBoard.board[2], gameBoard.board[5], gameBoard.board[8]],
+      [gameBoard.board[0], gameBoard.board[4], gameBoard.board[8]],
+      [gameBoard.board[2], gameBoard.board[4], gameBoard.board[6]],
+    ];
+    const markerAi = (aiPos === 1) ? 'X' : 'O';
+    const markerPlayer = (aiPos === 1) ? 'O' : 'X';
+    let playWin = null;
+    let playStopWin = null;
+    let played = false;
+
+    function checkBlank(pos) {
+      return pos === '';
+    }
+
+    function checkO(pos) {
+      return pos === 'O';
+    }
+
+    function checkX(pos) {
+      return pos === 'X';
+    }
+
+    function returnPositionPlay(i, indexF) {
+      switch (i) {
+        case 0:
+          switch (indexF) {
+            case 0:
+              return 0;
+            case 1:
+              return 1;
+            case 2:
+              return 2;
+            default:
+              return '';
+          }
+        case 1:
+          switch (indexF) {
+            case 0:
+              return 3;
+            case 1:
+              return 4;
+            case 2:
+              return 5;
+            default:
+              return '';
+          }
+        case 2:
+          switch (indexF) {
+            case 0:
+              return 6;
+            case 1:
+              return 7;
+            case 2:
+              return 8;
+            default:
+              return '';
+          }
+        case 3:
+          switch (indexF) {
+            case 0:
+              return 0;
+            case 1:
+              return 3;
+            case 2:
+              return 6;
+            default:
+              return '';
+          }
+        case 4:
+          switch (indexF) {
+            case 0:
+              return 1;
+            case 1:
+              return 4;
+            case 2:
+              return 7;
+            default:
+              return '';
+          }
+        case 5:
+          switch (indexF) {
+            case 0:
+              return 2;
+            case 1:
+              return 5;
+            case 2:
+              return 8;
+            default:
+              return '';
+          }
+        case 6:
+          switch (indexF) {
+            case 0:
+              return 0;
+            case 1:
+              return 4;
+            case 2:
+              return 8;
+            default:
+              return '';
+          }
+        case 7:
+          switch (indexF) {
+            case 0:
+              return 2;
+            case 1:
+              return 4;
+            case 2:
+              return 6;
+            default:
+              return '';
+          }
+        default:
+          return '';
+      }
+    }
+
+    for (let i = 0; i < combinations.length; i += 1) {
+      const results = combinations[i].filter(x => x.includes(markerAi));
+      if (results && results.length === 2) {
+        const indexF = combinations[i].findIndex(checkBlank);
+        if (indexF !== -1) {
+          playWin = returnPositionPlay(i, indexF);
+          // eslint-disable-next-line no-use-before-define
+          gamePlayer.turns(p1, p2, playWin, true);
+          played = true;
+          i = combinations.length;
+        }
+      }
+    }
+
+    if (!played) {
+      for (let i = 0; i < combinations.length; i += 1) {
+        const results = combinations[i].filter(x => x.includes(markerPlayer));
+        if (results && results.length === 2) {
+          const indexF = combinations[i].findIndex(checkBlank);
+          if (indexF !== -1) {
+            playStopWin = returnPositionPlay(i, indexF);
+            // eslint-disable-next-line no-use-before-define
+            gamePlayer.turns(p1, p2, playStopWin, true);
+            played = true;
+            i = combinations.length;
+          }
+        }
+      }
+    }
+
+    let moves = gameBoard.board.filter(x => x.includes(markerAi)).length;
+    moves += gameBoard.board.filter(x => x.includes(markerPlayer)).length;
+
+    if (moves === 0) {
+      const possiblePlay = [0, 2, 6, 8];
+      const position = possiblePlay[Math.floor(Math.random() * possiblePlay.length)];
+      // eslint-disable-next-line no-use-before-define
+      gamePlayer.turns(p1, p2, position, true);
+      played = true;
+    } else if (moves === 1) {
+      if (gameBoard.board[4] === '') {
+        // eslint-disable-next-line no-use-before-define
+        gamePlayer.turns(p1, p2, 4, true);
+        played = true;
+      } else {
+        const possiblePlay = [0, 2, 6, 8];
+        const position = possiblePlay[Math.floor(Math.random() * possiblePlay.length)];
+        // eslint-disable-next-line no-use-before-define
+        gamePlayer.turns(p1, p2, position, true);
+        played = true;
+      }
+    }
+
+    if (aiPos === 1 && moves === 2) {
+      const plFMove = gameBoard.board.findIndex(checkO);
+      const aiFMove = gameBoard.board.findIndex(checkX);
+      if (plFMove === 4) {
+        switch (aiFMove) {
+          case 0:
+            // eslint-disable-next-line no-use-before-define
+            gamePlayer.turns(p1, p2, 8, true);
+            played = true;
+            break;
+          case 2:
+            // eslint-disable-next-line no-use-before-define
+            gamePlayer.turns(p1, p2, 6, true);
+            played = true;
+            break;
+          case 6:
+            // eslint-disable-next-line no-use-before-define
+            gamePlayer.turns(p1, p2, 2, true);
+            played = true;
+            break;
+          case 8:
+            // eslint-disable-next-line no-use-before-define
+            gamePlayer.turns(p1, p2, 0, true);
+            played = true;
+            break;
+          default:
+            break;
+        }
+      } else {
+        switch (plFMove) {
+          case 0:
+            switch (aiFMove) {
+              case 2:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 6, true);
+                played = true;
+                break;
+              case 6:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 2, true);
+                played = true;
+                break;
+              case 8:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 2, true);
+                played = true;
+                break;
+              default:
+                break;
+            }
+            break;
+          case 1:
+            switch (aiFMove) {
+              case 0:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 6, true);
+                played = true;
+                break;
+              case 2:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 8, true);
+                played = true;
+                break;
+              case 6:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 8, true);
+                played = true;
+                break;
+              case 8:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 6, true);
+                played = true;
+                break;
+              default:
+                break;
+            }
+            break;
+          case 2:
+            switch (aiFMove) {
+              case 0:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 8, true);
+                played = true;
+                break;
+              case 6:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 0, true);
+                played = true;
+                break;
+              case 8:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 0, true);
+                played = true;
+                break;
+              default:
+                break;
+            }
+            break;
+          case 3:
+            switch (aiFMove) {
+              case 0:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 2, true);
+                played = true;
+                break;
+              case 2:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 8, true);
+                played = true;
+                break;
+              case 6:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 8, true);
+                played = true;
+                break;
+              case 8:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 2, true);
+                played = true;
+                break;
+              default:
+                break;
+            }
+            break;
+          case 5:
+            switch (aiFMove) {
+              case 0:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 6, true);
+                played = true;
+                break;
+              case 2:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 0, true);
+                played = true;
+                break;
+              case 6:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 0, true);
+                played = true;
+                break;
+              case 8:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 6, true);
+                played = true;
+                break;
+              default:
+                break;
+            }
+            break;
+          case 6:
+            switch (aiFMove) {
+              case 0:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 8, true);
+                played = true;
+                break;
+              case 2:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 0, true);
+                played = true;
+                break;
+              case 8:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 0, true);
+                played = true;
+                break;
+              default:
+                break;
+            }
+            break;
+          case 7:
+            switch (aiFMove) {
+              case 0:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 2, true);
+                played = true;
+                break;
+              case 2:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 0, true);
+                played = true;
+                break;
+              case 6:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 0, true);
+                played = true;
+                break;
+              case 8:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 2, true);
+                played = true;
+                break;
+              default:
+                break;
+            }
+            break;
+          case 8:
+            switch (aiFMove) {
+              case 0:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 2, true);
+                played = true;
+                break;
+              case 2:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 6, true);
+                played = true;
+                break;
+              case 6:
+                // eslint-disable-next-line no-use-before-define
+                gamePlayer.turns(p1, p2, 2, true);
+                played = true;
+                break;
+              default:
+                break;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    if (!played) {
+      if (aiPos === 2 && moves === 3) {
+        if (gameBoard.board[4] === 'X') {
+          const corners = [];
+          corners.push(gameBoard.board[0]);
+          corners.push(gameBoard.board[2]);
+          corners.push(gameBoard.board[6]);
+          corners.push(gameBoard.board[8]);
+          let playPosition = corners.findIndex(checkBlank);
+          switch (playPosition) {
+            case 0:
+              playPosition = 0;
+              break;
+            case 1:
+              playPosition = 2;
+              break;
+            case 2:
+              playPosition = 6;
+              break;
+            case 3:
+              playPosition = 8;
+              break;
+            default:
+              break;
+          }
+          // eslint-disable-next-line no-use-before-define
+          gamePlayer.turns(p1, p2, playPosition, true);
+          played = true;
+        } else if (gameBoard.board[1] === 'X' || gameBoard.board[3] === 'X' || gameBoard.board[5] === 'X' || gameBoard.board[7] === 'X') {
+          const corners = [];
+          if (gameBoard.board[5] === 'X' || gameBoard.board[7] === 'X') {
+            corners.push(gameBoard.board[6]);
+            corners.push(gameBoard.board[8]);
+            let playPosition = corners.findIndex(checkBlank);
+            if (playPosition === 0) {
+              playPosition = 6;
+            } else {
+              playPosition = 8;
+            }
+            // eslint-disable-next-line no-use-before-define
+            gamePlayer.turns(p1, p2, playPosition, true);
+            played = true;
+          } else {
+            corners.push(gameBoard.board[0]);
+            corners.push(gameBoard.board[2]);
+            let playPosition = corners.findIndex(checkBlank);
+            if (playPosition === 0) {
+              playPosition = 0;
+            } else {
+              playPosition = 2;
+            }
+            // eslint-disable-next-line no-use-before-define
+            gamePlayer.turns(p1, p2, playPosition, true);
+            played = true;
+          }
+        } else {
+          const middle = [];
+          middle.push(gameBoard.board[1]);
+          middle.push(gameBoard.board[3]);
+          middle.push(gameBoard.board[5]);
+          middle.push(gameBoard.board[7]);
+          let playPosition = middle.findIndex(checkBlank);
+          switch (playPosition) {
+            case 0:
+              playPosition = 1;
+              break;
+            case 1:
+              playPosition = 3;
+              break;
+            case 2:
+              playPosition = 5;
+              break;
+            case 3:
+              playPosition = 7;
+              break;
+            default:
+              break;
+          }
+          // eslint-disable-next-line no-use-before-define
+          gamePlayer.turns(p1, p2, playPosition, true);
+          played = true;
+        }
+      }
+    }
+
+    if (!played) {
+      if (aiPos === 1 && moves === 4) {
+        const corners = [];
+        corners.push(gameBoard.board[0]);
+        corners.push(gameBoard.board[2]);
+        corners.push(gameBoard.board[6]);
+        corners.push(gameBoard.board[8]);
+        let playPosition = corners.findIndex(checkBlank);
+        switch (playPosition) {
+          case 0:
+            playPosition = 0;
+            break;
+          case 1:
+            playPosition = 2;
+            break;
+          case 2:
+            playPosition = 6;
+            break;
+          case 3:
+            playPosition = 8;
+            break;
+          default:
+            break;
+        }
+        if (corners.findIndex(checkO) >= 0) {
+          // eslint-disable-next-line no-use-before-define
+          gamePlayer.turns(p1, p2, playPosition, true);
+          played = true;
+        } else {
+          // eslint-disable-next-line no-use-before-define
+          gamePlayer.turns(p1, p2, 4, true);
+          played = true;
+        }
+      }
+    }
+
+    function getAllIndexes(arr, val) {
+      const indexes = [];
+      arr.forEach((element, index) => {
+        if (element === val) {
+          indexes.push(index);
+        }
+      });
+      return indexes;
+    }
+
+    if (!played) {
+      const possiblePlay = getAllIndexes(gameBoard.board, '');
+      const position = possiblePlay[Math.floor(Math.random() * possiblePlay.length)];
+      // eslint-disable-next-line no-use-before-define
+      gamePlayer.turns(p1, p2, position, true);
+      played = true;
+    }
+  }
+
+  return {
+    aiPos,
+    aiPosition,
+    makeMove,
+  };
+})();
+
+
 const gamePlayer = (() => {
   let currentPlayer = 1;
+
+  function resetPlayer() {
+    currentPlayer = 1;
+    gamePlayer.currentPlayer = currentPlayer;
+  }
 
   function clearButtons() {
     const cells = document.getElementsByClassName('cell');
@@ -81,7 +644,7 @@ const gamePlayer = (() => {
     }
   }
 
-  const turns = (player1, player2, index) => {
+  const turns = (player1, player2, index, ai) => {
     if (gameBoard.validMove(index)) {
       gameBoard.putMarker(index, currentPlayer === 1 ? player1.marker : player2.marker);
       const state = gameBoard.checkEnd();
@@ -99,6 +662,9 @@ const gamePlayer = (() => {
         document.getElementById('message').innerHTML = `It's ${currentPlayer === 1 ? player1.name : player2.name} turn!`;
         changeColors(document.getElementById('message'), currentPlayer);
       }
+      if (!ai && !state && aiLogics.aiPos !== 0) {
+        aiLogics.makeMove(player1, player2);
+      }
     }
   };
 
@@ -106,7 +672,7 @@ const gamePlayer = (() => {
     const cells = document.getElementsByClassName('cell');
     for (let i = 0; i < cells.length; i += 1) {
       cells[i].addEventListener('click', () => {
-        turns(p1, p2, i);
+        turns(p1, p2, i, false);
       });
     }
   }
@@ -115,6 +681,8 @@ const gamePlayer = (() => {
     turns,
     addButtons,
     changeColors,
+    currentPlayer,
+    resetPlayer,
   };
 })();
 
@@ -168,10 +736,20 @@ const buttonModel = (() => {
     const top = document.getElementById('topelements');
     top.classList.add('d-none');
     top.classList.remove('d-inline');
+    aiLogics.aiPosition(0);
+
+    if (document.getElementById('ai1').checked) {
+      aiLogics.aiPosition(1);
+      aiLogics.makeMove(p1, p2);
+    }
+    if (document.getElementById('ai2').checked) {
+      aiLogics.aiPosition(2);
+    }
   }
 
   function reset() {
     gameBoard.boardReset();
+    gamePlayer.resetPlayer();
     const bottom = document.getElementById('bottomelements');
     bottom.classList.add('d-none');
     bottom.classList.remove('d-inline');
@@ -186,9 +764,18 @@ const buttonModel = (() => {
     }
   }
 
+  function checkAi() {
+    if (document.getElementById('ai1').checked && document.getElementById('ai2').checked) {
+      document.getElementById('ai1').checked = false;
+      document.getElementById('ai2').checked = false;
+      this.checked = true;
+    }
+  }
+
   return {
     getPlayerName,
     reset,
+    checkAi,
   };
 })();
 
@@ -200,3 +787,9 @@ btnStart.addEventListener('click', buttonModel.getPlayerName);
 
 const playAgain = document.getElementById('playagain');
 playAgain.addEventListener('click', buttonModel.reset);
+
+const checkAi1 = document.getElementById('ai1');
+checkAi1.addEventListener('click', buttonModel.checkAi);
+
+const checkAi2 = document.getElementById('ai2');
+checkAi2.addEventListener('click', buttonModel.checkAi);
