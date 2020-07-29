@@ -9,6 +9,8 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(77, 196, 184);
+  height: 100vh;
 }
 
 .main {
@@ -41,23 +43,28 @@ body {
 }
 
 .border-central {
-  border: solid 2px black;
+  border: solid 8px rgba(82, 79, 78, .4);
+  
 }
 
 .border-vertical {
-  border-left: solid 2px black;
-  border-right: solid 2px black;
+  border-left: solid 8px  rgba(82, 79, 78, .4);
+  border-right: solid 8px  rgba(82, 79, 78, .4);
 }
 
 .border-horizontal {
-  border-top: solid 2px black;
-  border-bottom: solid 2px black;
+  border-top: solid 8px  rgba(82, 79, 78, .4);
+  border-bottom: solid 8px  rgba(82, 79, 78, .4);
 }
 
 .message-container {
   margin-top: 4rem;
   font-size: calc(1rem + 3vh);
   color: black;
+  background-color: rgba(216, 216, 216, .4);
+  padding: 20px;
+  width: 100vw;
+  text-align: center;
 }
 
 .error-input {
@@ -85,11 +92,46 @@ body {
   margin-top: 2rem;
 }
 
-.btn {
-  background-color: rgb(54, 126, 60);
+input {
+  margin-top: 10px;
+  height: 2rem;
+  border: none;
+  border-radius: 3px;
+  padding: 20px 20px;
+  
+}
+
+label {
+  font-size: 20px;
   color: white;
+}
+
+.checkboxes {
+ display: flex;
+}
+
+.check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.check input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.btn {
+  background-color: rgb(255, 246, 232);
+  color: rgb(118, 99, 99);
   padding: 10px;
-  border: 2px solid rgb(54, 126, 60);
+  border: 2px solid rgb(255, 246, 232);
   border-radius: 5px;
   font: inherit;
   cursor: pointer;
@@ -98,9 +140,9 @@ body {
 }
 
 .x-class {
-  color: rgb(54, 126, 60);
+  color: rgb(255, 246, 232);
 }
 
 .o-class {
-  color: rgb(43, 82, 148);
+  color: rgb(118, 99, 99);
 }
