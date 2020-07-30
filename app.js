@@ -797,6 +797,27 @@ const buttonModel = (() => {
       document.getElementById('ai1').checked = false;
       document.getElementById('ai2').checked = false;
       this.checked = true;
+      document.getElementById('player1').value = '';
+      document.getElementById('player2').value = '';
+    }
+
+    if (this === document.getElementById('ai1')) {
+      document.getElementById('player1').value = '';
+    } else if (this === document.getElementById('ai2')) {
+      document.getElementById('player2').value = '';
+    }
+
+    document.getElementById('player1').disabled = false;
+    document.getElementById('player2').disabled = false;
+
+    if (document.getElementById('ai1').checked) {
+      document.getElementById('player1').value = 'AI';
+      document.getElementById('player1').disabled = true;
+    }
+
+    if (document.getElementById('ai2').checked) {
+      document.getElementById('player2').value = 'AI';
+      document.getElementById('player2').disabled = true;
     }
   }
 

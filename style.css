@@ -44,7 +44,6 @@ body {
 
 .border-central {
   border: solid 8px rgba(82, 79, 78, .4);
-  
 }
 
 .border-vertical {
@@ -68,8 +67,9 @@ body {
 }
 
 .error-input {
-  color: red;
+  color: rgb(165, 67, 67);
   font-size: 0.8rem;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -85,7 +85,13 @@ body {
 }
 
 #topelements {
+  position: absolute;
+  top: 0;
   margin-top: 2rem;
+  background-color: rgba(216, 216, 216, .4);
+  padding: 5rem;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(0, 128, 128, 0.247);
 }
 
 #bottomelements {
@@ -101,8 +107,31 @@ input {
   
 }
 
-label {
-  font-size: 20px;
+form label {
+  font-size: 24px;
+  margin-right: 10px;
+  color: white;
+}
+
+.logo {
+  color: rgb(118, 99, 99);
+  font-size: 5rem;
+  margin-bottom: 5rem;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  width: 100%;
+  text-align: center;
+}
+
+.logo h1 {
+  text-shadow: 5px 5px 5px rgba(0, 128, 128, 0.247);
+}
+
+.ailabel {
+  font-size: 14px;
+}
+
+.leveltitle {
+  margin: 2rem 0 0 0;
   color: white;
 }
 
@@ -115,16 +144,17 @@ label {
   justify-content: center;
   align-items: center;
   margin: 10px;
+  color: white;
 }
 
 .check input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
+  height: 12px;
+  width: 12px;
   background-color: #eee;
+  border: 1px solid white;
   border-radius: 50%;
+  margin-bottom: 12px;
+  margin-right: 5px;
 }
 
 .btn {
@@ -133,16 +163,21 @@ label {
   padding: 10px;
   border: 2px solid rgb(255, 246, 232);
   border-radius: 5px;
-  font: inherit;
   cursor: pointer;
   font-size: calc(1rem + 1vh);
   margin-bottom: 5rem;
 }
 
+.btn.start {
+  margin-bottom: 0;
+}
+
 .x-class {
   color: rgb(255, 246, 232);
+  text-shadow: 5px 5px 5px rgba(0, 128, 128, 0.247);
 }
 
 .o-class {
   color: rgb(118, 99, 99);
+  text-shadow: 5px 5px 5px rgba(0, 128, 128, 0.247);
 }
