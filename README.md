@@ -1,7 +1,7 @@
 # JsTicTacToe
 JavaScript project for creating a Tic-Tac-Toe game on browser.
 
-![screenshot](tictactoe.png)
+![screenshot](tictaccover.png)
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@ JavaScript project for creating a Tic-Tac-Toe game on browser.
 
 ## Demo
 
-[Live Demo](https://rawcdn.githack.com/Stricks1/JsTicTacToe/ac9f364263f592ad28595b98d95f27b749f347de/index.html)
+[Live Demo](https://raw.githack.com/Stricks1/JsTicTacToe/feature-ai/index.html)
 
 ## Installation
 
