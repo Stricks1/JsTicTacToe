@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+
+<div class="main">
+
+  <div class="form-container" id="topelements">
+    <form>
+
+      <label for="player">Player 1 Name:</label><br>
+      <input type="text" id="player1"><br>
+      <span id="ep1" class="error-input d-none">* This can't be empty</span><br>
+
+      <label for="player">Player 2 Name:</label><br>
+      <input type="text" id="player2"><br>
+      <span id="ep2" class="error-input d-none">* This can't be empty</span><br>
+
+    </form>
+    <button type="button" id ="startgame" class = "btn " >Start Game!</button>
+  </div>
+
+  <div id="bottomelements">
+
+    <button type="button" id ="playagain" class = "btn " >Play again!</button>
+    
+    <div class="board">
+      <div class="row">
+        <span class="cell"></span>
+        <span class="cell border-vertical"></span>
+        <span class="cell"></span>
+      </div>
+      <div class="row">
+        <span class="cell border-horizontal"></span>
+        <span class="cell border-central"></span>
+        <span class="cell border-horizontal"></span>
+      </div>
+      <div class="row">
+        <span class="cell"></span>
+        <span class="cell border-vertical" ></span>
+        <span class="cell"></span>
+      </div>
+    </div>
+
+    <div class="message-container">
+      <p id="message"></p>
+    </div>
+
+  </div>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>

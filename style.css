@@ -1,0 +1,106 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: inherit;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  min-width: 40px;
+  min-height: 40px;
+  width: 20vh;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(1rem + 10vh);
+  cursor: pointer;
+}
+
+.border-central {
+  border: solid 2px black;
+}
+
+.border-vertical {
+  border-left: solid 2px black;
+  border-right: solid 2px black;
+}
+
+.border-horizontal {
+  border-top: solid 2px black;
+  border-bottom: solid 2px black;
+}
+
+.message-container {
+  margin-top: 4rem;
+  font-size: calc(1rem + 3vh);
+  color: black;
+}
+
+.error-input {
+  color: red;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-inline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#topelements {
+  margin-top: 2rem;
+}
+
+#bottomelements {
+  margin-top: 2rem;
+}
+
+.btn {
+  background-color: rgb(54, 126, 60);
+  color: white;
+  padding: 10px;
+  border: 2px solid rgb(54, 126, 60);
+  border-radius: 5px;
+  font: inherit;
+  cursor: pointer;
+  font-size: calc(1rem + 1vh);
+  margin-bottom: 5rem;
+}
+
+.x-class {
+  color: rgb(54, 126, 60);
+}
+
+.o-class {
+  color: rgb(43, 82, 148);
+}
