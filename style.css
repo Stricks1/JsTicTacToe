@@ -9,6 +9,8 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(77, 196, 184);
+  height: 100vh;
 }
 
 .main {
@@ -41,28 +43,33 @@ body {
 }
 
 .border-central {
-  border: solid 2px black;
+  border: solid 8px rgba(82, 79, 78, 0.4);
 }
 
 .border-vertical {
-  border-left: solid 2px black;
-  border-right: solid 2px black;
+  border-left: solid 8px  rgba(82, 79, 78, 0.4);
+  border-right: solid 8px  rgba(82, 79, 78, 0.4);
 }
 
 .border-horizontal {
-  border-top: solid 2px black;
-  border-bottom: solid 2px black;
+  border-top: solid 8px  rgba(82, 79, 78, 0.4);
+  border-bottom: solid 8px  rgba(82, 79, 78, 0.4);
 }
 
 .message-container {
   margin-top: 4rem;
   font-size: calc(1rem + 3vh);
   color: black;
+  background-color: rgba(216, 216, 216, 0.4);
+  padding: 20px;
+  width: 100vw;
+  text-align: center;
 }
 
 .error-input {
-  color: red;
+  color: rgb(165, 67, 67);
   font-size: 0.8rem;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -78,29 +85,98 @@ body {
 }
 
 #topelements {
+  position: absolute;
+  top: 0;
   margin-top: 2rem;
+  background-color: rgba(216, 216, 216, 0.4);
+  padding: 5rem;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(0, 128, 128, 0.247);
 }
 
 #bottomelements {
   margin-top: 2rem;
 }
 
-.btn {
-  background-color: rgb(54, 126, 60);
+input {
+  margin-top: 10px;
+  height: 2rem;
+  border: none;
+  border-radius: 3px;
+  padding: 20px 20px;
+}
+
+form label {
+  font-size: 24px;
+  margin-right: 10px;
   color: white;
+}
+
+.logo {
+  color: rgb(118, 99, 99);
+  font-size: 5rem;
+  margin-bottom: 5rem;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  width: 100%;
+  text-align: center;
+}
+
+.logo h1 {
+  text-shadow: 5px 5px 5px rgba(0, 128, 128, 0.247);
+}
+
+.ailabel {
+  font-size: 14px;
+}
+
+.leveltitle {
+  margin: 2rem 0 0 0;
+  color: white;
+}
+
+.checkboxes {
+  display: flex;
+}
+
+.check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  color: white;
+}
+
+.check input {
+  height: 12px;
+  width: 12px;
+  background-color: #eee;
+  border: 1px solid white;
+  border-radius: 50%;
+  margin-bottom: 12px;
+  margin-right: 5px;
+}
+
+.btn {
+  background-color: rgb(255, 246, 232);
+  color: rgb(118, 99, 99);
   padding: 10px;
-  border: 2px solid rgb(54, 126, 60);
+  border: 2px solid rgb(255, 246, 232);
   border-radius: 5px;
-  font: inherit;
   cursor: pointer;
   font-size: calc(1rem + 1vh);
   margin-bottom: 5rem;
 }
 
+.btn.start {
+  margin-bottom: 0;
+}
+
 .x-class {
-  color: rgb(54, 126, 60);
+  color: rgb(255, 246, 232);
+  text-shadow: 5px 5px 5px rgba(0, 128, 128, 0.247);
 }
 
 .o-class {
-  color: rgb(43, 82, 148);
+  color: rgb(118, 99, 99);
+  text-shadow: 5px 5px 5px rgba(0, 128, 128, 0.247);
 }

@@ -6,28 +6,62 @@
   <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
-<body>
 
+<body>
 <div class="main">
 
-  <div class="form-container" id="topelements">
+  <div class="form-container d-inline" id="topelements">
+    <div class="logo">
+      <h1>TIC TAC TOE</h1>
+    </div>
     <form>
-
-      <label for="player">Player 1 Name:</label><br>
-      <input type="text" id="player1"><br>
-      <span id="ep1" class="error-input d-none">* This can't be empty</span><br>
-
-      <label for="player">Player 2 Name:</label><br>
-      <input type="text" id="player2"><br>
-      <span id="ep2" class="error-input d-none">* This can't be empty</span><br>
-
+    <div>
+      <label for="player">PLAYER 1</label>
+      <input type="text" id="player1">
+      <span id="ep1" class="error-input d-none">* Field can't be empty</span>
+      <div class="check">
+        <input type="checkbox" id="ai1"  class="aibox">
+        <label for="ai1" class ="ailabel">AI PLAY</label>
+      </div>
+    </div>
+    <div>
+      <label for="player">PLAYER 2</label>
+      <input type="text" id="player2">
+      <span id="ep2" class="error-input d-none">* Field can't be empty</span>
+      <div class="check">
+        <input type="checkbox" id="ai2" class="aibox">
+        <label for="ai2" class ="ailabel">AI PLAY</label>
+      </div>
+    </div>
     </form>
-    <button type="button" id ="startgame" class = "btn " >Start Game!</button>
+
+    <h1 class="leveltitle">AI LEVEL</h1>
+    <div class="checkboxes">
+      
+      <div class="check">
+        <input type="radio" id="junior" name="level" value=1>
+        <label for="junior">JUNIOR</label>
+      </div>
+      <div class="check">
+        <input type="radio" id="mid" name="level" value=2>
+        <label for="mid">MID</label>
+      </div>
+      <div class="check">
+        <input type="radio" class ="radiobtn" id="senior" name="level" value=3>
+        <label for="senior">SENIOR</label>
+      </div>
+    </div>
+    
+    <button type="button" id ="startgame" class = "btn start" >Start Game</button>
+
+
   </div>
+
+ 
 
   <div id="bottomelements">
 
-    <button type="button" id ="playagain" class = "btn " >Play again!</button>
+    <button type="button" id ="playagain" class = "btn " >Play Again</button>
     
     <div class="board">
       <div class="row">
