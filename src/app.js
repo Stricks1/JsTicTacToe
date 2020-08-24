@@ -660,9 +660,7 @@ const gamePlayer = (() => {
   }
 
   const turns = (player1, player2, index, ai) => {
-    console.log(gameBoard.validMove(index));
     if (gameBoard.validMove(index)) {
-      console.log('valid');
       gameBoard.putMarker(index, currentPlayer === 1 ? player1.marker : player2.marker, ai);
       const state = gameBoard.checkEnd();
       if (state) {
@@ -858,5 +856,5 @@ function setListeners() {
 }
 
 export {
-  gameBoard, aiLogics, gamePlayer, buttonModel, setListeners,
+  gameBoard, setListeners,
 };

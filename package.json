@@ -1,5 +1,5 @@
 {
-  "name": "JsTicTacToe",
+  "name": "jstictactoe",
   "version": "1.0.0",
   "description": "JavaScript project for creating a Tic-Tac-Toe game on browser.",
   "main": "index.js",

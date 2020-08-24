@@ -33,6 +33,7 @@ $ git clone git@github.com:Stricks1/JsTicTacToe.git
 
 ## Built With
 - Javascript
+- JEST
 - HTML
 - CSS
 
