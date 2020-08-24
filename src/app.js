@@ -660,7 +660,9 @@ const gamePlayer = (() => {
   }
 
   const turns = (player1, player2, index, ai) => {
+    console.log(gameBoard.validMove(index));
     if (gameBoard.validMove(index)) {
+      console.log('valid');
       gameBoard.putMarker(index, currentPlayer === 1 ? player1.marker : player2.marker, ai);
       const state = gameBoard.checkEnd();
       if (state) {
@@ -829,26 +831,32 @@ const buttonModel = (() => {
   };
 })();
 
-const bottom = document.getElementById('bottomelements');
-bottom.classList.add('d-none');
+function setListeners() {
+  const bottom = document.getElementById('bottomelements');
+  bottom.classList.add('d-none');
 
-const btnStart = document.getElementById('startgame');
-btnStart.addEventListener('click', buttonModel.getPlayerName);
+  const btnStart = document.getElementById('startgame');
+  btnStart.addEventListener('click', buttonModel.getPlayerName);
 
-const playAgain = document.getElementById('playagain');
-playAgain.addEventListener('click', buttonModel.reset);
+  const playAgain = document.getElementById('playagain');
+  playAgain.addEventListener('click', buttonModel.reset);
 
-const checkAi1 = document.getElementById('ai1');
-checkAi1.addEventListener('click', buttonModel.checkAi);
+  const checkAi1 = document.getElementById('ai1');
+  checkAi1.addEventListener('click', buttonModel.checkAi);
 
-const checkAi2 = document.getElementById('ai2');
-checkAi2.addEventListener('click', buttonModel.checkAi);
+  const checkAi2 = document.getElementById('ai2');
+  checkAi2.addEventListener('click', buttonModel.checkAi);
 
-const checkJunior = document.getElementById('junior');
-checkJunior.addEventListener('click', buttonModel.checkLevel);
+  const checkJunior = document.getElementById('junior');
+  checkJunior.addEventListener('click', buttonModel.checkLevel);
 
-const checkMid = document.getElementById('mid');
-checkMid.addEventListener('click', buttonModel.checkLevel);
+  const checkMid = document.getElementById('mid');
+  checkMid.addEventListener('click', buttonModel.checkLevel);
 
-const checkSenior = document.getElementById('senior');
-checkSenior.addEventListener('click', buttonModel.checkLevel);
+  const checkSenior = document.getElementById('senior');
+  checkSenior.addEventListener('click', buttonModel.checkLevel);
+}
+
+export {
+  gameBoard, aiLogics, gamePlayer, buttonModel, setListeners,
+};
