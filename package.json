@@ -1,0 +1,35 @@
+{
+  "name": "jstictactoe",
+  "version": "1.0.0",
+  "description": "JavaScript project for creating a Tic-Tac-Toe game on browser.",
+  "main": "index.js",
+  "dependencies": {
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.11.0",
+    "css-loader": "^4.2.2",
+    "jest": "^26.4.2",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --mode development --open",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stricks1/JsTicTacToe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stricks1/JsTicTacToe/issues"
+  },
+  "homepage": "https://github.com/Stricks1/JsTicTacToe#readme"
+}
