@@ -1,3 +1,5 @@
+import playerFactory from './player';
+
 const gameBoard = (() => {
   let board = ['', '', '', '', '', '', '', '', ''];
 
@@ -702,8 +704,6 @@ const gamePlayer = (() => {
 })();
 
 gameBoard.render();
-
-const playerFactory = (name, marker) => ({ name, marker });
 
 const buttonModel = (() => {
   let p1 = '';
